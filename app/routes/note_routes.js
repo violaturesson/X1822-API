@@ -42,5 +42,28 @@ module.exports=function(app, db){
     });
 
     //update
-    //deoete
+    app.put('/notes/:id', (req, res)=>{
+
+        const myDB=db.db('notesdb1');
+        const id=req.params.id;
+
+        const details={'_id': new objectId(id)};
+        const note={text: req.body.body, title: req.body.title};
+      
+        myDB.collection('notes').findOne(details,  note, (err, item)=>{
+            if(err){
+                res.send({'error':'An error again...'});
+            }
+            else{
+                res.send(item);
+            }
+        });
+
+        console.log('updating notes');
+       //res.send('this should be a returned note');
+    });
+
+    //delete
+
+
 };
